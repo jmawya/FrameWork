@@ -31,7 +31,7 @@ Feature: Login
     Then student should not be able to successfully login
 
   @login @regression
-  Scenario Outline: Ensure user able to login with different sets of credentials
+  Scenario Outline: Ensure user able to sign up with different sets of credentials
     And student enter their valid email address "<emailValue>"
     And student enter their valid password "<passwordValue>"
     Examples:

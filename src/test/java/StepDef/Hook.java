@@ -1,6 +1,7 @@
 package StepDef;
 
 import base.config;
+import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import org.testng.util.Strings;
 
@@ -35,5 +36,11 @@ public class Hook extends config {
                 throw new IllegalStateException("Unexpected value: " + envType);
         }
         driver.get(url);
+
+
 }
+  @After()
+    public void afterEachTest(){
+     driver.quit();
+    }
 }

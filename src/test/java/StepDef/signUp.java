@@ -3,47 +3,39 @@ package StepDef;
 import base.config;
 import com.github.javafaker.Faker;
 import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
 public class signUp extends config {
-    WebDriver driver;
 
-    Faker faker = new Faker();
-
-
-    @Given("student at talentTEK SignUp page")
-    public void studentAtTalentTEKSignUpPage() {
-
-        driver=new ChromeDriver();
-        driver.get("https://qa.taltektc.com/signup.html");
-        driver.manage().window().maximize();
-
+  //  Faker f = new Faker();
+    @And("student clicks on Create New Account button from login page")
+    public void studentClicksOnCreateNewAccountButtonFromLoginPage() {
+        driver.findElement (By.xpath("//*[@id='wrap']/div/div/div/a")).click();
     }
     @And("student enter their valid firstname")
-
     public void studentEnterTheirValidFirstname() {
-        String randomFirstName = faker.name().firstName();
-
-        driver.findElement(By.name("firstName")).sendKeys(randomFirstName);
+        driver.findElement(By.name("firstName")).sendKeys("Jannatul");
     }
 
     @And("student enter their valid lastname")
     public void studentEnterTheirValidLastname() {
-        driver.findElement(By.name("lastName")).sendKeys("Jannatul");
+        driver.findElement(By.name("lastName")).sendKeys("Mawya ");
 
     }
+
+
     @And("student enter their valid email address for sign up")
     public void studentEnterTheirValidEmailaddress() {
-        String randomEmail=faker.internet().emailAddress();
-        driver.findElement(By.name("email")).sendKeys(randomEmail);
+       Faker fa=new Faker();
+       String random=fa.internet().emailAddress();
+       driver.findElement(By.name("email")).sendKeys(random);
+
+
     }
 
     @And("student enter their valid password for singUp")
@@ -85,18 +77,18 @@ public class signUp extends config {
 
     }
 
-    @And("student agree to the agree box")
+    @And("student agree to the Terms & Condition")
     public void studentAgreeToTheAgreeBox() {
         driver.findElement(By.name("agree")).click();
     }
 
-    @When("they click on create an account button")
+    @When("student clicks on Create New Account button")
     public void theyClickOnCreateAnAccountButton() {
         driver.findElement(By.cssSelector("button[type='submit']")).click();
     }
 
-    @Then("student should be able to successfully sign up")
-    public void studentShouldBeAbleToSuccessfullySignUp() {
+    @Then("student should be able to get an student Id")
+    public void studentShouldBeAbleToGetAnStudentId() {
         String expected = "Success!";
         String actualValue = driver.findElement(By.xpath("//div[@class='swal-title']")).getText();
         Assert.assertEquals(actualValue, expected);
@@ -105,14 +97,12 @@ public class signUp extends config {
         System.out.println("FULL TEXT is === " + fullTextOfStudentId);
         // Your student id is: TTC0022222
 
-        STUDENT_RANDOM_ID = fullTextOfStudentId.substring(fullTextOfStudentId.indexOf(":") + 2);
-        System.out.println("ONLY PRINT ==> Student Random Id  ===> " + STUDENT_RANDOM_ID);
+        String studentID=driver.findElement(By.xpath("//div[@class='swal-text']")).getText();
+        System.out.println("Visible Text:" + studentID);
         // TTC0022222
 
         // click on OK button from the popup
         driver.findElement(By.xpath("//button[@class='swal-button swal-button--confirm']")).click();
-
-
     }
 
     @And("student enter existing email address for sign up")
@@ -121,9 +111,31 @@ public class signUp extends config {
     }
 
     @Then("student should not be able to successfully sign up with existing email")
-    public void studentShouldNotBeAbleToSuccessfullySignUpwithexistingemail() {
+    public void studentShouldNotBeAbleToSuccessfullySignUpwithexistingemail(){
         String exp = "Email already exists";
         String act = driver.findElement(By.xpath("//*[@id='error-msg']")).getText();
         Assert.assertEquals(act, exp);
+
+    }
+
+
+    @And("student validate if they can select different month as {string}")
+    public void studentValidateIfTheyCanSelectDifferentMonthAs(String month) {
+
+
+        Select m = new Select (driver.findElement(By.name("month")));
+        m.selectByVisibleText(month);
+    }
+
+    @And("student validate if they can select different day as {string}")
+    public void studentValidateIfTheyCanSelectDifferentDayAs(String day) {
+        Select d = new Select (driver.findElement(By.name("day")));
+        d.selectByVisibleText(day);
+    }
+
+    @And("student validate if they can select different year as {string}")
+    public void studentValidateIfTheyCanSelectDifferentYearAs(String year) {
+        Select y = new Select (driver.findElement(By.name("year")));
+        y.selectByVisibleText(year);
     }
 }

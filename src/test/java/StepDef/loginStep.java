@@ -29,6 +29,7 @@ public class loginStep extends config {
     @And("student enter their valid email address {string}")
     public void studentEnterTheirValidEmailAddressWithDataProvider(String enterEmailAddress) {
         driver.findElement(By.name("email")).sendKeys(enterEmailAddress);
+
     }
 
     @And("student enter their valid password")
@@ -80,5 +81,6 @@ public class loginStep extends config {
         String act = driver.findElement(By.xpath("//*[@id='error-msg']")).getText();
         Assert.assertEquals(act, exp);
     }
+
 
 }

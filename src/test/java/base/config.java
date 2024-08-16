@@ -10,8 +10,8 @@ import java.time.Duration;
 
 public class config {
 
-    public static String STUDENT_RANDOM_ID;
-    public static String STUDENT_HARDCODED_EMAIL_ADDRESS;
+ //   public static String STUDENT_RANDOM_ID;
+
     public static WebDriver driver;
 
     public static String browserType=System.getProperty("browser");
