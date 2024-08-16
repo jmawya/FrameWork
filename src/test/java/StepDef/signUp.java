@@ -1,5 +1,7 @@
 package StepDef;
 
+import base.config;
+import com.github.javafaker.Faker;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -11,8 +13,12 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
-public class signUp {
+public class signUp extends config {
     WebDriver driver;
+
+    Faker faker = new Faker();
+
+
     @Given("student at talentTEK SignUp page")
     public void studentAtTalentTEKSignUpPage() {
 
@@ -22,8 +28,11 @@ public class signUp {
 
     }
     @And("student enter their valid firstname")
+
     public void studentEnterTheirValidFirstname() {
-        driver.findElement(By.name("firstName")).sendKeys("Mawya");
+        String randomFirstName = faker.name().firstName();
+
+        driver.findElement(By.name("firstName")).sendKeys(randomFirstName);
     }
 
     @And("student enter their valid lastname")
@@ -33,7 +42,8 @@ public class signUp {
     }
     @And("student enter their valid email address for sign up")
     public void studentEnterTheirValidEmailaddress() {
-        driver.findElement(By.name("email")).sendKeys("jmawya315p@gmail.com");
+        String randomEmail=faker.internet().emailAddress();
+        driver.findElement(By.name("email")).sendKeys(randomEmail);
     }
 
     @And("student enter their valid password for singUp")
@@ -87,9 +97,22 @@ public class signUp {
 
     @Then("student should be able to successfully sign up")
     public void studentShouldBeAbleToSuccessfullySignUp() {
-        String exp="Your student ID is: TTC0114";
-        String act =driver.findElement(By.xpath("/html/body/div[2]/div/div[3]")).getText();
-        Assert.assertEquals(act,exp);
+        String expected = "Success!";
+        String actualValue = driver.findElement(By.xpath("//div[@class='swal-title']")).getText();
+        Assert.assertEquals(actualValue, expected);
+
+        String fullTextOfStudentId = driver.findElement(By.xpath("//div[@class='swal-text']")).getText();
+        System.out.println("FULL TEXT is === " + fullTextOfStudentId);
+        // Your student id is: TTC0022222
+
+        STUDENT_RANDOM_ID = fullTextOfStudentId.substring(fullTextOfStudentId.indexOf(":") + 2);
+        System.out.println("ONLY PRINT ==> Student Random Id  ===> " + STUDENT_RANDOM_ID);
+        // TTC0022222
+
+        // click on OK button from the popup
+        driver.findElement(By.xpath("//button[@class='swal-button swal-button--confirm']")).click();
+
+
     }
 
     @And("student enter existing email address for sign up")

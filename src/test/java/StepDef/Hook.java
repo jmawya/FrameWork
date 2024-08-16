@@ -23,6 +23,7 @@ public class Hook extends config {
 
             case "QA":
                 url = "https://qa.taltektc.com";
+
                 break;
             case "STAGE":
                 url = "https://stage.taltektc.com";
