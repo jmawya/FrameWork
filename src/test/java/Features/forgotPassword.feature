@@ -11,3 +11,4 @@ Feature: Forgate password
     And student choose a new password
     And student confirm new password
     When they click on change button
+    Then Student successfully change their password

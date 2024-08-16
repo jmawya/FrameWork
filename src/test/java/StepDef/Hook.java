@@ -39,8 +39,8 @@ public class Hook extends config {
 
 
 }
-  @After()
+ /* @After()
     public void afterEachTest(){
      driver.quit();
-    }
+    }*/
 }
