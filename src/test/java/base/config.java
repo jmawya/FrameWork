@@ -14,7 +14,6 @@ public class config {
 
     public static WebDriver driver;
 
-    public static String browserType=System.getProperty("browser");
 
 
     public static WebDriver setupBrowser(String browserType) {

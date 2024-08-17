@@ -7,6 +7,7 @@ import org.testng.util.Strings;
 
 public class Hook extends config {
     public static String url;
+    public static String browserType=System.getProperty("browser");
 
     public static String envType = System.getProperty("env");
 
@@ -23,24 +24,21 @@ public class Hook extends config {
         switch (envType.toUpperCase()) {
 
             case "QA":
-                url = "https://qa.taltektc.com";
-
+                driver.get("https://qa.taltektc.com");
                 break;
             case "STAGE":
-                url = "https://stage.taltektc.com";
+                driver.get("https://stage.taltektc.com");
                 break;
             case "PROD":
-                url = "https://prod.taltektc.com";
+                driver.get("https://prod.taltektc.com");
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + envType);
+
         }
-        driver.get(url);
-
-
 }
- /* @After()
+ @After()
     public void afterEachTest(){
      driver.quit();
-    }*/
+    }
 }

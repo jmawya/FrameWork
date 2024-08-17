@@ -121,21 +121,23 @@ public class signUp extends config {
 
     @And("student validate if they can select different month as {string}")
     public void studentValidateIfTheyCanSelectDifferentMonthAs(String month) {
+       WebElement list= driver.findElement(By.name("month"));
 
-
-        Select m = new Select (driver.findElement(By.name("month")));
+        Select m = new Select (list);
         m.selectByVisibleText(month);
     }
 
     @And("student validate if they can select different day as {string}")
     public void studentValidateIfTheyCanSelectDifferentDayAs(String day) {
-        Select d = new Select (driver.findElement(By.name("day")));
+      WebElement list1= driver.findElement(By.name("day"));
+        Select d = new Select (list1);
         d.selectByVisibleText(day);
     }
 
     @And("student validate if they can select different year as {string}")
     public void studentValidateIfTheyCanSelectDifferentYearAs(String year) {
-        Select y = new Select (driver.findElement(By.name("year")));
+       WebElement list2= driver.findElement(By.name("year"));
+        Select y = new Select (list2);
         y.selectByVisibleText(year);
     }
 }
